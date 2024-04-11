@@ -3,6 +3,7 @@ package med.voll.api.medico;
 import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.endereco.Endereco;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @Table(name = "medico")
 @Entity(name = "medico")
@@ -13,7 +14,10 @@ import med.voll.api.endereco.Endereco;
 @EqualsAndHashCode(of = "id")
 public class Medico {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medico_id_seq")
+    @SequenceGenerator(name = "medico_id_seq", sequenceName = "medico_id_seq", allocationSize = 1)
     private Long id;
     private String nome;
     private String email;
@@ -32,4 +36,6 @@ public class Medico {
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
     }
+
+
 }

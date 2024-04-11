@@ -1,4 +1,4 @@
-create table medico(
+alter table medico(
     id bigserial primary key,
     nome varchar(100) not null,
     email varchar(100) not null unique,

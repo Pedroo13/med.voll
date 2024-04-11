@@ -8,10 +8,7 @@ import med.voll.api.medico.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/medico")
@@ -24,6 +21,13 @@ public class MedicoController {
     @Transactional
     public void cadastrar(@RequestBody DadosCadastroMedico dados) {
         repository.save(new Medico(dados));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteProudct(@PathVariable Long id) {
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
 
     }
 }
