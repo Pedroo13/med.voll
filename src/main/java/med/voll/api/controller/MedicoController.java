@@ -35,7 +35,7 @@ public class MedicoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteProudct(@PathVariable Long id) {
+    public ResponseEntity deleteMedico(@PathVariable Long id) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
 
