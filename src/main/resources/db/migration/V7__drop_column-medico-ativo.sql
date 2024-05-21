@@ -1,1 +1,1 @@
-ALTER TABLE pacientes DROP COLUMN ativo;
+ALTER TABLE paciente DROP COLUMN ativo;

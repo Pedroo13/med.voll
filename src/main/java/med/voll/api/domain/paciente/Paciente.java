@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.endereco.Endereco;
 
-@Table(name = "pacientes")
-@Entity(name = "pacientes")
+@Table(name = "paciente")
+@Entity(name = "paciente")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
