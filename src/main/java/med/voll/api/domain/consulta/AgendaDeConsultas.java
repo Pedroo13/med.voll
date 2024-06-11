@@ -2,11 +2,14 @@ package med.voll.api.domain.consulta;
 
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.ValidacaoException;
+import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 //executa regras de negocio e valições da API
 @Service
@@ -21,8 +24,15 @@ public class AgendaDeConsultas {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    //O Spring vai, automaticamente, identificar que estamos injetando uma lista
+    //e vai procurar todas as classes que implementam a interface
+    // ValidadorAgendamentoDeConsulta. Então, não importa a quantidade de validadores,
+    // com isso o Spring vai injetar um por um. É muito mais prático fazer dessa forma.
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
+
                         //parametro
-    public void agendar(DadosAgendamentoConsulta dados){
+    public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados){
         if (!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidacaoException("Id do paciente, não existe");
         }
@@ -31,10 +41,15 @@ public class AgendaDeConsultas {
             throw new ValidacaoException("Id do medico, não existe");
         }
 
+        //forEach para percorrer a lista
+        validadores.forEach(v -> v.validar(dados));
+
         var medico = escolherMedico(dados);
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var consulta = new Consulta(null, medico, paciente, dados.data());
         consultaRepository.save(consulta);
+
+        return new DadosDetalhamentoConsulta(consulta);
 
     }
 

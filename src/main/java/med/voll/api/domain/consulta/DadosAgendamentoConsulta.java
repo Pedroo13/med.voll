@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 
 public record DadosAgendamentoConsulta(
 
-        Long idMedico,
+    @NotNull
+    Long idMedico,
 
-        @NotNull
+    @NotNull
     Long idPaciente,
 
-        @NotNull
+    @NotNull
     //para dizer que a data só pode ser no futuro
     @Future
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")

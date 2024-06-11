@@ -25,8 +25,8 @@ public class ConsultaController {
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados) {
         //pegar o metodo agenda, chamar o metodo agendar e passando como parametro
         //os dados que estão chegando no controller
-        agenda.agendar(dados);
-        return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null, null, null));
+        var dto = agenda.agendar(dados);
+        return ResponseEntity.ok(dto);
     }
 
 }
