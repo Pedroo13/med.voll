@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                             req.requestMatchers("/login").permitAll();
                              //req.requestMatchers(HttpMethod.DELETE, "/medicos").hasRole("ADMIN");
                              //req.requestMatchers(HttpMethod.DELETE, "/pacientes").hasRole("ADMIN");
+                            req.requestMatchers("/v3/api-docs/**", "swagger-ui.html", "/swagger-ui/**").permitAll();
                             req.anyRequest().authenticated();
                         })
                         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
