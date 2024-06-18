@@ -11,10 +11,11 @@ import med.voll.api.domain.paciente.Paciente;
 import java.time.LocalDateTime;
 
 @Table(name = "consultas")
-@Entity(name = "consultas")
+@Entity(name = "Consulta")
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Consulta {
 
     @Id
@@ -35,17 +36,8 @@ public class Consulta {
     @Enumerated(EnumType.STRING)
     private MotivoCancelamento motivoCancelamento;
 
-    public Consulta(Object o, Medico medico, Paciente paciente, LocalDateTime data, Object o1) {
-    }
-
     public void cancelar(MotivoCancelamento motivo) {
         this.motivoCancelamento = motivo;
     }
 
-    public Consulta(Long id, Medico medico, Paciente paciente, LocalDateTime data) {
-        this.id = id;
-        this.medico = medico;
-        this.paciente = paciente;
-        this.data = data;
-    }
 }
